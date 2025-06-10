@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro Finance - Empowering Your Financial Freedom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="TopContainer">
+            <div class="logo">
+                <img src="Pragathi logo-02.png" alt="Pragathi Micro Finance Logo" id="logo-img">
+                <h1>Pragathi Micro <span>Finance</span></h1>
+                
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#calculator">Loan Calculator</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn primary-btn" id="login-btn">Login</button>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#calculator">Loan Calculator</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="btn primary-btn" id="mobile-login-btn">Login</button></li>
+        </ul>
+    </div>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Financial Solutions for Everyone</h2>
+                    <p>Accessible micro loans with simple payment methods and friendly customer service to support your financial growth.</p>
+                    <div class="hero-buttons">
+                        <a href="#calculator" class="btn primary-btn">Calculate Loan</a>
+                        <a href="#contact" class="btn secondary-btn">Contact Us</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="Financial Freedom.jpg" alt="Financial freedom illustration">
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">We provide simple and accessible financial solutions</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>Micro Loan Service</h3>
+                        <p>Quick and easy loans with minimal paperwork and fast approval process.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Daily Money Collection</h3>
+                        <p>Convenient daily payment collection at your doorstep or via digital methods.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Simple Payment Methods</h3>
+                        <p>Multiple payment options including cash, mobile money, and bank transfers.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <h3>User-Friendly Service</h3>
+                        <p>Dedicated customer support to guide you through every step of the process.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <h3>Easy Registration</h3>
+                        <p>Simple documentation process with minimal requirements for quick approval.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Flexible Repayment</h3>
+                        <p>Customizable repayment plans tailored to your financial capacity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculator" class="calculator">
+            <div class="container">
+                <h2 class="section-title">Loan Calculator</h2>
+                <p class="section-subtitle">Estimate your loan amount and repayment schedule</p>
+                
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="loan-amount">Loan Amount ($)</label>
+                            <input type="range" id="loan-amount" min="100" max="10000" step="100" value="1000">
+                            <div class="range-value">
+                                <span id="loan-amount-value">1000</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loan-term">Loan Term (months)</label>
+                            <input type="range" id="loan-term" min="1" max="36" value="12">
+                            <div class="range-value">
+                                <span id="loan-term-value">12</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="interest-rate">Interest Rate (%)</label>
+                            <input type="range" id="interest-rate" min="1" max="20" step="0.5" value="5">
+                            <div class="range-value">
+                                <span id="interest-rate-value">5</span>
+                            </div>
+                        </div>
+                        
+                        <button id="calculate-btn" class="btn primary-btn">Calculate</button>
+                    </div>
+                    
+                    <div class="calculator-results">
+                        <div class="result-card">
+                            <h3>Monthly Payment</h3>
+                            <p id="monthly-payment">$0.00</p>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Total Interest</h3>
+                            <p id="total-interest">$0.00</p>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Total Payment</h3>
+                            <p id="total-payment">$0.00</p>
+                        </div>
+                        
+                        <div class="result-card full-width">
+                            <h3>Repayment Schedule</h3>
+                            <div class="schedule-table-container">
+                                <table id="repayment-schedule">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Payment</th>
+                                            <th>Principal</th>
+                                            <th>Interest</th>
+                                            <th>Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2 class="section-title">About Micro Finance</h2>
+                    <p>Micro Finance is dedicated to providing accessible financial services to individuals and small businesses who may not have access to traditional banking services.</p>
+                    <p>Founded with the mission to empower communities through financial inclusion, we offer simple, transparent, and customer-friendly microfinance solutions.</p>
+                    <p>Our team of financial experts is committed to helping you achieve your financial goals with personalized service and flexible repayment options.</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>5000+</h3>
+                            <p>Happy Clients</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>$10M+</h3>
+                            <p>Loans Disbursed</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>98%</h3>
+                            <p>Repayment Rate</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>24/7</h3>
+                            <p>Customer Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="Support.jpg" alt="Our team helping clients">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch for any inquiries or support</p>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Address</h3>
+                                <p>123 Finance Street, Business District</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Phone</h3>
+                                <p>+1 (555) 123-4567</p>
+                                <p>+1 (555) 765-4321</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Email</h3>
+                                <p>shehangap@gmail.com</p>
+                                <p>support@microfinance.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Working Hours</h3>
+                                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                                <p>Saturday: 9:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" placeholder="Your Phone">
+                            </div>
+                            <div class="form-group">
+                                <select id="subject" required>
+                                    <option value="" disabled selected>Select Subject</option>
+                                    <option value="loan">Loan Inquiry</option>
+                                    <option value="payment">Payment Issue</option>
+                                    <option value="account">Account Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn primary-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="logo">
+                        <img src="Pragathi logo-02.png" alt="Pragathi Finance Logo">
+                        <h3>Pragathi Micro <span>Finance</span></h3>
+                    </div>
+                    <p>Empowering individuals and small businesses with accessible financial solutions for a brighter future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#calculator">Loan Calculator</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Micro Loans</a></li>
+                        <li><a href="#">Daily Collection</a></li>
+                        <li><a href="#">Easy Payments</a></li>
+                        <li><a href="#">Customer Support</a></li>
+                        <li><a href="#">Loan Calculator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for financial tips and updates.</p>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> Micro Finance. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Customer Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-email">Email or Phone</label>
+                    <input type="text" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-group remember-forgot">
+                    <div>
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn primary-btn">Login</button>
+                <p class="register-link">Don't have an account? <a href="#">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
