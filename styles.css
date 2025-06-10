@@ -458,20 +458,20 @@ nav ul li a:hover::after {
 
 .result-card {
     background-color: var(--card-bg);
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     text-align: center;
     box-shadow: var(--shadow);
 }
 
 .result-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 10px;
     color: var(--text-light);
 }
 
 .result-card p {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary-color);
     margin: 0;
@@ -496,7 +496,7 @@ nav ul li a:hover::after {
 
 #repayment-schedule th, 
 #repayment-schedule td {
-    padding: 12px 15px;
+    padding: 5px 5px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
@@ -539,12 +539,13 @@ nav ul li a:hover::after {
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 20px;
     margin-top: 40px;
 }
 
 .stat-item {
+    
     text-align: center;
     padding: 20px;
     background-color: var(--card-bg);

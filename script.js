@@ -110,9 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalInt = total - amount;
         
         // Display results
-        monthlyPayment.textContent = '$' + monthly.toFixed(2);
-        totalInterest.textContent = '$' + totalInt.toFixed(2);
-        totalPayment.textContent = '$' + total.toFixed(2);
+        monthlyPayment.textContent = 'Rs' + monthly.toFixed(2);
+        totalInterest.textContent = 'Rs' + totalInt.toFixed(2);
+        totalPayment.textContent = 'Rs' + total.toFixed(2);
         
         // Generate repayment schedule
         generateRepaymentSchedule(amount, term, rate, monthly);
@@ -137,10 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = repaymentSchedule.insertRow();
             row.innerHTML = `
                 <td>${i}</td>
-                <td>$${monthlyPayment.toFixed(2)}</td>
-                <td>$${principal.toFixed(2)}</td>
-                <td>$${interest.toFixed(2)}</td>
-                <td>$${balance.toFixed(2)}</td>
+                <td>Rs.${monthlyPayment.toFixed(2)}</td>
+                <td>Rs.${principal.toFixed(2)}</td>
+                <td>Rs.${interest.toFixed(2)}</td>
+                <td>Rs.${balance.toFixed(2)}</td>
             `;
         }
     }
