@@ -1,206 +1,274 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const logoImg = document.getElementById('logo-img');
-    
-    // Check for saved theme preference or use preferred color scheme
-    const savedTheme = localStorage.getItem('theme') || 
-                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
-    // Apply the saved theme
-    if (savedTheme === 'dark') {
-        body.setAttribute('data-theme', 'dark');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    } else {
-        body.removeAttribute('data-theme');
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    }
-    
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', function() {
-        if (body.getAttribute('data-theme') === 'dark') {
-            body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+// User data array for login validation with unique URLs
+    const userData = [
+        { 
+            username: "pragathi_user", 
+            email: "user@pragathi.com", 
+            password: "password123",
+            appUrl: "https://www.appsheet.com/start/pragathi-user-app"
+        },
+        { 
+            username: "microfinance", 
+            email: "admin@pragathi.com", 
+            password: "admin2023",
+            appUrl: "https://www.appsheet.com/start/admin-dashboard"
+        },
+        { 
+            username: "sureni", 
+            email: "mksureni@gmail.com", 
+            password: "sureni123",
+            appUrl: "https://www.appsheet.com/start/sureni-portal"
+        },
+        { 
+            username: "client01", 
+            email: "client01@gmail.com", 
+            password: "client01",
+            appUrl: "https://www.appsheet.com/start/client-portal-01"
+        },
+        { 
+            username: "testuser", 
+            email: "test@example.com", 
+            password: "test123",
+            appUrl: "https://www.appsheet.com/start/test-environment"
+        },
+        { 
+            username: "loan_officer", 
+            email: "officer@pragathi.com", 
+            password: "officer123",
+            appUrl: "https://www.appsheet.com/start/loan-officer-portal"
+        },
+        { 
+            username: "collection_agent", 
+            email: "agent@pragathi.com", 
+            password: "agent2023",
+            appUrl: "https://www.appsheet.com/start/collection-agent-app"
         }
-    });
-    
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileLoginBtn = document.getElementById('mobile-login-btn');
-    
-    mobileMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-        });
-    });
-    
-    // Login Modal
+    ];
+
+    // DOM Elements
+    const themeToggle = document.getElementById('theme-toggle');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mainNav = document.getElementById('main-nav');
     const loginBtn = document.getElementById('login-btn');
+    const openAppBtn = document.getElementById('open-app-btn');
     const loginModal = document.getElementById('login-modal');
     const closeModal = document.querySelector('.close-modal');
-    
-    function openLoginModal() {
-        loginModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeLoginModal() {
-        loginModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    loginBtn.addEventListener('click', openLoginModal);
-    mobileLoginBtn.addEventListener('click', openLoginModal);
-    closeModal.addEventListener('click', closeLoginModal);
-    
-    // Close modal when clicking outside
-    loginModal.addEventListener('click', function(e) {
-        if (e.target === loginModal) {
-            closeLoginModal();
-        }
-    });
-    
-    // Loan Calculator
+    const loginForm = document.getElementById('login-form');
     const loanAmount = document.getElementById('loan-amount');
     const loanTerm = document.getElementById('loan-term');
     const interestRate = document.getElementById('interest-rate');
     const loanAmountValue = document.getElementById('loan-amount-value');
     const loanTermValue = document.getElementById('loan-term-value');
     const interestRateValue = document.getElementById('interest-rate-value');
-    const calculateBtn = document.getElementById('calculate-btn');
     const monthlyPayment = document.getElementById('monthly-payment');
     const totalInterest = document.getElementById('total-interest');
     const totalPayment = document.getElementById('total-payment');
-    const repaymentSchedule = document.getElementById('repayment-schedule').getElementsByTagName('tbody')[0];
-    
-    // Update range values
-    loanAmount.addEventListener('input', function() {
-        loanAmountValue.textContent = this.value;
+    const scheduleBody = document.getElementById('schedule-body');
+
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const icon = themeToggle.querySelector('i');
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
     });
-    
-    loanTerm.addEventListener('input', function() {
-        loanTermValue.textContent = this.value;
+
+    // Mobile Menu Toggle
+    mobileMenuBtn.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
     });
-    
-    interestRate.addEventListener('input', function() {
-        interestRateValue.textContent = this.value;
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('active');
+        });
     });
-    
-    // Calculate loan
+
+    // Modal Functions
+    function openModal(modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModalFunc(modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Open login modal
+    loginBtn.addEventListener('click', () => openModal(loginModal));
+    openAppBtn.addEventListener('click', () => openModal(loginModal));
+
+    // Close login modal
+    closeModal.addEventListener('click', () => closeModalFunc(loginModal));
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+            closeModalFunc(loginModal);
+        }
+    });
+
+    // Login Form Validation with Unique URL Routing
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('login-username').value;
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        let isValid = false;
+        let userUrl = "";
+        
+        // Check if user exists in the array and get their unique URL
+        for (let user of userData) {
+            if (user.username === username && user.email === email && user.password === password) {
+                isValid = true;
+                userUrl = user.appUrl;
+                break;
+            }
+        }
+        
+        if (isValid) {
+            // Show success message
+            document.getElementById('username-error').style.display = 'none';
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            // Create success message element
+            const successMessage = document.createElement('div');
+            successMessage.style.cssText = `
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px;
+                border-radius: 5px;
+                margin-bottom: 15px;
+                text-align: center;
+                font-weight: 500;
+            `;
+            successMessage.textContent = 'Login successful! Redirecting to your app...';
+            
+            // Insert success message
+            const form = document.getElementById('login-form');
+            form.insertBefore(successMessage, form.firstChild);
+            
+            // Redirect to user's unique AppSheet URL after 1.5 seconds
+            setTimeout(() => {
+                window.location.href = userUrl;
+            }, 1500);
+            
+        } else {
+            // Show error messages
+            document.getElementById('username-error').style.display = 'block';
+            document.getElementById('email-error').style.display = 'block';
+            document.getElementById('password-error').style.display = 'block';
+        }
+    });
+
+    // Clear error messages when user starts typing
+    document.querySelectorAll('#login-form input').forEach(input => {
+        input.addEventListener('input', () => {
+            document.getElementById('username-error').style.display = 'none';
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            // Remove success message if exists
+            const successMessage = document.querySelector('#login-form div');
+            if (successMessage && successMessage.style.backgroundColor === 'rgb(76, 175, 80)') {
+                successMessage.remove();
+            }
+        });
+    });
+
+    // Loan Calculator Functions
+    function formatCurrency(amount) {
+        return 'Rs. ' + amount.toLocaleString('en-IN');
+    }
+
     function calculateLoan() {
-        const amount = parseFloat(loanAmount.value);
-        const term = parseInt(loanTerm.value);
-        const rate = parseFloat(interestRate.value) / 100 / 12; // Monthly interest rate
+        const principal = parseFloat(loanAmount.value);
+        const months = parseFloat(loanTerm.value);
+        const rate = parseFloat(interestRate.value) / 100;
         
-        // Calculate monthly payment
-        const monthly = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
-        const total = monthly * term;
-        const totalInt = total - amount;
+        // Monthly interest rate
+        const monthlyRate = rate / 12;
         
-        // Display results
-        monthlyPayment.textContent = 'Rs' + monthly.toFixed(2);
-        totalInterest.textContent = 'Rs' + totalInt.toFixed(2);
-        totalPayment.textContent = 'Rs' + total.toFixed(2);
+        // Calculate monthly payment using the formula: P * r * (1+r)^n / ((1+r)^n - 1)
+        const monthlyPaymentAmount = principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+        
+        const totalPaymentAmount = monthlyPaymentAmount * months;
+        const totalInterestAmount = totalPaymentAmount - principal;
+        
+        // Update display values
+        monthlyPayment.textContent = formatCurrency(Math.round(monthlyPaymentAmount));
+        totalInterest.textContent = formatCurrency(Math.round(totalInterestAmount));
+        totalPayment.textContent = formatCurrency(Math.round(totalPaymentAmount));
         
         // Generate repayment schedule
-        generateRepaymentSchedule(amount, term, rate, monthly);
+        generateSchedule(principal, months, monthlyRate, monthlyPaymentAmount);
     }
-    
-    function generateRepaymentSchedule(amount, term, monthlyRate, monthlyPayment) {
-        let balance = amount;
-        let totalInterest = 0;
+
+    function generateSchedule(principal, months, monthlyRate, monthlyPayment) {
+        let balance = principal;
+        let scheduleHTML = '';
         
-        // Clear existing rows
-        repaymentSchedule.innerHTML = '';
-        
-        for (let i = 1; i <= term; i++) {
+        for (let i = 1; i <= months; i++) {
             const interest = balance * monthlyRate;
-            const principal = monthlyPayment - interest;
-            totalInterest += interest;
-            balance -= principal;
+            const principalPaid = monthlyPayment - interest;
+            balance -= principalPaid;
             
-            // Ensure balance doesn't go below 0 due to rounding
-            if (balance < 0) balance = 0;
+            // Ensure balance doesn't go negative
+            if (balance < 0) {
+                balance = 0;
+            }
             
-            const row = repaymentSchedule.insertRow();
-            row.innerHTML = `
-                <td>${i}</td>
-                <td>Rs.${monthlyPayment.toFixed(2)}</td>
-                <td>Rs.${principal.toFixed(2)}</td>
-                <td>Rs.${interest.toFixed(2)}</td>
-                <td>Rs.${balance.toFixed(2)}</td>
+            scheduleHTML += `
+                <tr>
+                    <td>${i}</td>
+                    <td>${formatCurrency(Math.round(monthlyPayment))}</td>
+                    <td>${formatCurrency(Math.round(principalPaid))}</td>
+                    <td>${formatCurrency(Math.round(interest))}</td>
+                    <td>${formatCurrency(Math.round(balance))}</td>
+                </tr>
             `;
         }
+        
+        scheduleBody.innerHTML = scheduleHTML;
     }
-    
-    calculateBtn.addEventListener('click', calculateLoan);
-    
-    // Calculate loan on page load with default values
+
+    // Update range values display
+    loanAmount.addEventListener('input', () => {
+        loanAmountValue.textContent = parseInt(loanAmount.value).toLocaleString('en-IN');
+        calculateLoan();
+    });
+
+    loanTerm.addEventListener('input', () => {
+        loanTermValue.textContent = loanTerm.value;
+        calculateLoan();
+    });
+
+    interestRate.addEventListener('input', () => {
+        interestRateValue.textContent = interestRate.value;
+        calculateLoan();
+    });
+
+    // Initialize calculator
     calculateLoan();
-    
-    // Contact Form Submission
-    const contactForm = document.getElementById('contactForm');
-    
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        
-        // In a real application, you would send this data to your server
-        console.log('Form submitted:', { name, email, subject });
-        
-        // Show success message
-        alert('Thank you for your message! We will get back to you soon.');
-        
-        // Reset form
-        contactForm.reset();
-    });
-    
-    // Newsletter Form Submission
-    const newsletterForm = document.getElementById('newsletterForm');
-    
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get email value
-        const email = newsletterForm.querySelector('input[type="email"]').value;
-        
-        // In a real application, you would send this to your server
-        console.log('Newsletter subscription:', email);
-        
-        // Show success message
-        alert('Thank you for subscribing to our newsletter!');
-        
-        // Reset form
-        newsletterForm.reset();
-    });
-    
-    // Set current year in footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+            if (targetId === '#') return;
             
+            const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
                     top: targetElement.offsetTop - 80,
@@ -209,14 +277,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        document.getElementById('contact-form').reset();
     });
-});
+
+    // Newsletter form submission
+    document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for subscribing to our newsletter!');
+        document.querySelector('.newsletter-form input').value = '';
+    });
