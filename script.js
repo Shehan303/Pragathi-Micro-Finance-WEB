@@ -5,7 +5,7 @@
             username: "pragathi_user", 
             email: "user@pragathi.com", 
             password: "password123",
-            appUrl: "https://www.appsheet.com/start/pragathi-user-app"
+            appUrl: "https://www.appsheet.com/start/a7e29189-e578-494e-82e6-97199713f405"
         },
         { 
             username: "microfinance", 
