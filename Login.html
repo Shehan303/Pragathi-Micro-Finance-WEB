@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pragathi Micro Finance - Login</title>
-    
+    <link rel="icon" href="Pragathi logo-05.png" type="image/png">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -652,153 +652,284 @@
     </div>
 
     <script>
-        // User data array for login validation with unique URLs
-        const userData = [
-            { 
-                username: "pragathi", 
-                email: "user@pragathi.com", 
-                password: "pragathi123",
-                appUrl: "https://www.appsheet.com/start/a7e29189-e578-494e-82e6-97199713f405"
-            },
-            { 
-                username: "microfinance", 
-                email: "admin@pragathi.com", 
-                password: "admin2023",
-                appUrl: "https://www.appsheet.com/start/admin-dashboard"
-            },
-            { 
-                username: "sureni", 
-                email: "mksureni@gmail.com", 
-                password: "sureni123",
-                appUrl: "https://www.appsheet.com/start/sureni-portal"
-            },
-            { 
-                username: "client01", 
-                email: "client01@gmail.com", 
-                password: "client01",
-                appUrl: "https://www.appsheet.com/start/client-portal-01"
-            },
-            { 
-                username: "testuser", 
-                email: "test@example.com", 
-                password: "test123",
-                appUrl: "https://www.appsheet.com/start/test-environment"
+    // User data array for login validation with unique URLs
+    const userData = [
+        { 
+            username: "pragathi", 
+            email: "user@pragathi.com", 
+            password: "pragathi123",
+            appUrl: "https://www.appsheet.com/start/a7e29189-e578-494e-82e6-97199713f405"
+        },
+        { 
+            username: "microfinance", 
+            email: "admin@pragathi.com", 
+            password: "admin2023",
+            appUrl: "https://www.appsheet.com/start/admin-dashboard"
+        },
+        { 
+            username: "sureni", 
+            email: "mksureni@gmail.com", 
+            password: "sureni123",
+            appUrl: "https://www.appsheet.com/start/sureni-portal"
+        },
+        { 
+            username: "client01", 
+            email: "client01@gmail.com", 
+            password: "client01",
+            appUrl: "https://www.appsheet.com/start/client-portal-01"
+        },
+        { 
+            username: "testuser", 
+            email: "test@example.com", 
+            password: "test123",
+            appUrl: "https://www.appsheet.com/start/test-environment"
+        }
+    ];
+
+    // DOM Elements
+    const themeToggle = document.getElementById('theme-toggle');
+    const loginForm = document.getElementById('login-form');
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('login-password');
+    const successMessage = document.getElementById('success-message');
+
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const icon = themeToggle.querySelector('i');
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
+
+    // Password visibility toggle
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        const icon = togglePassword.querySelector('i');
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
+    });
+
+    // Function to show alert message
+    function showAlert(message, type = 'error') {
+        // Remove existing alert if any
+        const existingAlert = document.querySelector('.custom-alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        // Create alert element
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'custom-alert';
+        alertDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+
+        // Set background color based on type
+        if (type === 'error') {
+            alertDiv.style.backgroundColor = '#f44336';
+            alertDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i>${message}`;
+        } else if (type === 'warning') {
+            alertDiv.style.backgroundColor = '#ff9800';
+            alertDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i>${message}`;
+        } else if (type === 'success') {
+            alertDiv.style.backgroundColor = '#4CAF50';
+            alertDiv.innerHTML = `<i class="fas fa-check-circle"></i>${message}`;
+        }
+
+        document.body.appendChild(alertDiv);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.style.animation = 'slideUp 0.3s ease';
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 300);
             }
-        ];
+        }, 5000);
 
-        // DOM Elements
-        const themeToggle = document.getElementById('theme-toggle');
-        const loginForm = document.getElementById('login-form');
-        const togglePassword = document.getElementById('toggle-password');
-        const passwordInput = document.getElementById('login-password');
-        const successMessage = document.getElementById('success-message');
+        // Click to dismiss
+        alertDiv.addEventListener('click', () => {
+            alertDiv.style.animation = 'slideUp 0.3s ease';
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 300);
+        });
+    }
 
-        // Theme Toggle
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+    // Add CSS for alert animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
             }
-        });
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .custom-alert {
+                top: 10px;
+                max-width: 95%;
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 
-        // Password visibility toggle
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            const icon = togglePassword.querySelector('i');
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
+    // Login Form Validation
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('login-username').value;
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const acceptTerms = document.getElementById('accept-terms').checked;
+        
+        let isValid = true;
+        let userUrl = "";
+        
+        // Hide all error messages
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.style.display = 'none';
         });
+        
+        // Validate terms acceptance
+        if (!acceptTerms) {
+            document.getElementById('terms-error').style.display = 'flex';
+            isValid = false;
+            // Show alert message for terms
+            showAlert('Please accept the Terms & Conditions and Privacy Policy to continue.', 'warning');
+            return; // Stop further execution
+        }
+        
+        // Check user credentials
+        if (isValid) {
+            let userFound = false;
+            for (let user of userData) {
+                if (user.username === username && user.email === email && user.password === password) {
+                    userFound = true;
+                    userUrl = user.appUrl;
+                    break;
+                }
+            }
+            
+            if (!userFound) {
+                document.getElementById('username-error').style.display = 'flex';
+                document.getElementById('email-error').style.display = 'flex';
+                document.getElementById('password-error').style.display = 'flex';
+                isValid = false;
+                // Show alert message for invalid credentials
+                showAlert('Invalid username, email or password. Please check your credentials and try again.', 'error');
+                return; // Stop further execution
+            }
+        }
+        
+        if (isValid && userUrl) {
+            // Show success message
+            successMessage.style.display = 'block';
+            
+            // Show success alert
+            showAlert('Login successful! Redirecting to your app...', 'success');
+            
+            // Redirect after delay - FIXED URL OPENING
+            setTimeout(() => {
+                console.log('Redirecting to:', userUrl);
+                // Try multiple methods to ensure URL opens
+                try {
+                    // Method 1: Open in new tab (recommended for external URLs)
+                    window.open(userUrl, '_blank');
+                    
+                    // Method 2: Redirect in same tab (alternative)
+                    // window.location.href = userUrl;
+                    
+                    // Method 3: For mobile devices, try creating a link click
+                    const link = document.createElement('a');
+                    link.href = userUrl;
+                    link.target = '_blank';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                } catch (error) {
+                    console.error('Error redirecting:', error);
+                    // Fallback: Show message to user
+                    showAlert('Please manually visit: ' + userUrl, 'warning');
+                }
+            }, 2000);
+        }
+    });
 
-        // Login Form Validation
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('login-username').value;
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const acceptTerms = document.getElementById('accept-terms').checked;
-            
-            let isValid = true;
-            let userUrl = "";
-            
-            // Hide all error messages
+    // Clear error messages on input
+    document.querySelectorAll('#login-form input').forEach(input => {
+        input.addEventListener('input', () => {
             document.querySelectorAll('.error-message').forEach(error => {
                 error.style.display = 'none';
             });
+            successMessage.style.display = 'none';
             
-            // Validate terms acceptance
-            if (!acceptTerms) {
-                document.getElementById('terms-error').style.display = 'flex';
-                isValid = false;
-            }
-            
-            // Check user credentials
-            if (isValid) {
-                for (let user of userData) {
-                    if (user.username === username && user.email === email && user.password === password) {
-                        userUrl = user.appUrl;
-                        break;
-                    }
-                }
-                
-                if (!userUrl) {
-                    document.getElementById('username-error').style.display = 'flex';
-                    document.getElementById('email-error').style.display = 'flex';
-                    document.getElementById('password-error').style.display = 'flex';
-                    isValid = false;
-                }
-            }
-            
-            if (isValid && userUrl) {
-                // Show success message
-                successMessage.style.display = 'block';
-                
-                // Save preferences
-                const rememberMe = document.getElementById('remember-me').checked;
-                const biometricAuth = document.getElementById('biometric-auth').checked;
-                
-                if (rememberMe) {
-                    localStorage.setItem('rememberLogin', 'true');
-                }
-                
-                if (biometricAuth) {
-                    localStorage.setItem('enableBiometric', 'true');
-                }
-                
-                // Redirect after delay
-                setTimeout(() => {
-                    window.location.href = userUrl;
-                }, 1500);
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.custom-alert');
+            if (existingAlert) {
+                existingAlert.remove();
             }
         });
+    });
 
-        // Clear error messages on input
-        document.querySelectorAll('#login-form input').forEach(input => {
-            input.addEventListener('input', () => {
-                document.querySelectorAll('.error-message').forEach(error => {
-                    error.style.display = 'none';
-                });
-                successMessage.style.display = 'none';
-            });
-        });
-
-        // Load saved preferences
-        window.addEventListener('load', () => {
-            if (localStorage.getItem('rememberLogin') === 'true') {
-                document.getElementById('remember-me').checked = true;
-            }
-            
-            if (localStorage.getItem('enableBiometric') === 'true') {
-                document.getElementById('biometric-auth').checked = true;
-            }
-        });
-    </script>
+    // Load saved preferences
+    window.addEventListener('load', () => {
+        // Check if we have saved login data
+        const savedUsername = localStorage.getItem('savedUsername');
+        const savedEmail = localStorage.getItem('savedEmail');
+        
+        if (savedUsername && savedEmail) {
+            document.getElementById('login-username').value = savedUsername;
+            document.getElementById('login-email').value = savedEmail;
+        }
+    });
+</script>
 </body>
 </html>
