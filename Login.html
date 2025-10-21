@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragathi Micro Finance - Login</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #4CAF50;
+            --secondary-yellow: #FFC107;
+            --dark-text: #212121;
+            --light-text: #666666;
+            --background: #F5F5F5;
+            --card-bg: #FFFFFF;
+            --border-color: #E0E0E0;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-green: #4CAF50;
+            --secondary-yellow: #FFC107;
+            --dark-text: #E0E0E0;
+            --light-text: #B0B0B0;
+            --background: #121212;
+            --card-bg: #1E1E1E;
+            --border-color: #333333;
+            --white: #1E1E1E;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2E7D32 100%);
+            color: var(--dark-text);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2E7D32 100%);
+            color: white;
+            padding: 10px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-logo {
+            margin-bottom: 10px;
+        }
+
+        .modal-logo img {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-header h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 40px 30px;
+        }
+
+        /* Service Highlights */
+        .service-highlights {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 15px;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .highlight-item i {
+            color: var(--primary-green);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-item span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group label i {
+            color: var(--primary-green);
+            width: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            color: var(--dark-text);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+            outline: none;
+        }
+
+        /* Password Container */
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--light-text);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .toggle-password:hover {
+            color: var(--primary-green);
+        }
+
+        /* Error Messages */
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #f44336;
+        }
+
+        .error-message i {
+            font-size: 14px;
+        }
+
+        /* Terms and Conditions */
+        .terms-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(76, 175, 80, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            position: relative;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .terms-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Configuration Options */
+        .config-options {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .config-options h4 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            color: var(--dark-text);
+        }
+
+        .config-item {
+            margin-bottom: 12px;
+        }
+
+        .config-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Login Button */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            padding: 15px 30px;
+            background: var(--background);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .security-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--light-text);
+        }
+
+        .security-notice i {
+            color: var(--primary-green);
+        }
+
+        .register-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .success-message i {
+            margin-right: 8px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+        }
+
+        .back-btn a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: var(--card-bg);
+            color: var(--dark-text);
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .back-btn a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                max-width: 100%;
+            }
+
+            .modal-header {
+                padding: 30px 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 24px;
+            }
+
+            .modal-body {
+                padding: 30px 20px;
+            }
+
+            .service-highlights {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .highlight-item {
+                flex-direction: row;
+                justify-content: flex-start;
+                text-align: left;
+            }
+
+            .config-options {
+                padding: 15px;
+            }
+
+            .theme-toggle-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .back-btn {
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .modal-header {
+                padding: 25px 15px;
+            }
+
+            .modal-body {
+                padding: 25px 15px;
+            }
+
+            .theme-toggle-container {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .back-btn {
+                top: 15px;
+                left: 15px;
+            }
+        }
+
+        /* Dark Mode Support */
+        .dark-mode .terms-container {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .dark-mode .config-options {
+            background: var(--card-bg);
+        }
+
+        .dark-mode .security-notice {
+            background: rgba(76, 175, 80, 0.15);
+        }
+
+        .dark-mode .login-card {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <div class="back-btn">
+        <a href="./index.html">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Header -->
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <!-- Replace with your actual logo path -->
+                    <img src="Pragathi logo-02.png" alt="Pragathi Micro Finance Logo">
+                </div>
+                <h2>Welcome Back!</h2>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Success Message -->
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    Login successful! Redirecting to your app...
+                </div>
+
+                <!-- Service Highlights -->
+                <div class="service-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Login</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile Access</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-clock"></i>
+                        <span>24/7 Available</span>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">
+                            <i class="fas fa-user"></i>
+                            Username
+                        </label>
+                        <input type="text" id="login-username" placeholder="Enter your username" required>
+                        <div class="error-message" id="username-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Invalid username
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                        <div class="error-message" id="email-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Invalid email address
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <div class="password-container">
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" id="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="error-message" id="password-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Invalid password
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="terms-container">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="accept-terms" required>
+                            <span class="checkmark"></span>
+                            I accept the Terms & Conditions and Privacy Policy
+                        </label>
+                        <div class="error-message" id="terms-error">
+                            <i class="fas fa-exclamation-circle">
+                            You must accept the terms and conditions</i>
+                        </div>
+                    </div>
+
+                    
+                    
+                    <button type="submit" class="btn btn-primary login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login to App
+                    </button>
+                    
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <div class="security-notice">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Your data is protected with bank-level security</span>
+                </div>
+                <p>Don't have an account? <a href="index.html#contact" class="register-link">Contact us to register</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script>
+        // User data array for login validation with unique URLs
+        const userData = [
+            { 
+                username: "pragathi", 
+                email: "user@pragathi.com", 
+                password: "pragathi123",
+                appUrl: "https://www.appsheet.com/start/a7e29189-e578-494e-82e6-97199713f405"
+            },
+            { 
+                username: "microfinance", 
+                email: "admin@pragathi.com", 
+                password: "admin2023",
+                appUrl: "https://www.appsheet.com/start/admin-dashboard"
+            },
+            { 
+                username: "sureni", 
+                email: "mksureni@gmail.com", 
+                password: "sureni123",
+                appUrl: "https://www.appsheet.com/start/sureni-portal"
+            },
+            { 
+                username: "client01", 
+                email: "client01@gmail.com", 
+                password: "client01",
+                appUrl: "https://www.appsheet.com/start/client-portal-01"
+            },
+            { 
+                username: "testuser", 
+                email: "test@example.com", 
+                password: "test123",
+                appUrl: "https://www.appsheet.com/start/test-environment"
+            }
+        ];
+
+        // DOM Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const loginForm = document.getElementById('login-form');
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('login-password');
+        const successMessage = document.getElementById('success-message');
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Password visibility toggle
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const icon = togglePassword.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+
+        // Login Form Validation
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value;
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const acceptTerms = document.getElementById('accept-terms').checked;
+            
+            let isValid = true;
+            let userUrl = "";
+            
+            // Hide all error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Validate terms acceptance
+            if (!acceptTerms) {
+                document.getElementById('terms-error').style.display = 'flex';
+                isValid = false;
+            }
+            
+            // Check user credentials
+            if (isValid) {
+                for (let user of userData) {
+                    if (user.username === username && user.email === email && user.password === password) {
+                        userUrl = user.appUrl;
+                        break;
+                    }
+                }
+                
+                if (!userUrl) {
+                    document.getElementById('username-error').style.display = 'flex';
+                    document.getElementById('email-error').style.display = 'flex';
+                    document.getElementById('password-error').style.display = 'flex';
+                    isValid = false;
+                }
+            }
+            
+            if (isValid && userUrl) {
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Save preferences
+                const rememberMe = document.getElementById('remember-me').checked;
+                const biometricAuth = document.getElementById('biometric-auth').checked;
+                
+                if (rememberMe) {
+                    localStorage.setItem('rememberLogin', 'true');
+                }
+                
+                if (biometricAuth) {
+                    localStorage.setItem('enableBiometric', 'true');
+                }
+                
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = userUrl;
+                }, 1500);
+            }
+        });
+
+        // Clear error messages on input
+        document.querySelectorAll('#login-form input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.querySelectorAll('.error-message').forEach(error => {
+                    error.style.display = 'none';
+                });
+                successMessage.style.display = 'none';
+            });
+        });
+
+        // Load saved preferences
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('rememberLogin') === 'true') {
+                document.getElementById('remember-me').checked = true;
+            }
+            
+            if (localStorage.getItem('enableBiometric') === 'true') {
+                document.getElementById('biometric-auth').checked = true;
+            }
+        });
+    </script>
+</body>
+</html>
